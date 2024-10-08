@@ -1,13 +1,12 @@
-use macroquad::prelude::*;
 use crate::title_screen::start;
+use macroquad::prelude::*;
 
-mod title_screen;
 mod components;
 mod infinite;
 mod timed;
+mod title_screen;
 
-fn conf() -> Conf
-{
+fn conf() -> Conf {
     Conf {
         window_title: String::from("Target Challenge Infinite"),
         window_width: 1260,

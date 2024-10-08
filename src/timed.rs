@@ -1,6 +1,5 @@
-use macroquad::prelude::*;
 use crate::components::*;
-
+use macroquad::prelude::*;
 
 enum GameState {
     Starting,
@@ -8,7 +7,6 @@ enum GameState {
     PostGame,
 }
 pub async fn timed_game_loop() {
-
     let screen_width = screen_width();
     let screen_height = screen_height();
 
@@ -31,19 +29,36 @@ pub async fn timed_game_loop() {
 
         match game_state {
             GameState::Starting => {
-                draw_centered_text("Left click to start", screen_height / 2.0, 50, WHITE, screen_width);
+                draw_centered_text(
+                    "Left click to start",
+                    screen_height / 2.0,
+                    50,
+                    WHITE,
+                    screen_width,
+                );
                 if is_mouse_button_pressed(MouseButton::Left) {
                     game_state = GameState::Playing;
                 }
             }
 
             GameState::Playing => {
-                draw_centered_text(&format!("Remaining: {}", count), screen_height - 20.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Time: {:.2}", total_time), screen_height - 40.0, 30, WHITE, screen_width);
+                draw_centered_text(
+                    &format!("Remaining: {}", count),
+                    screen_height - 20.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
+                draw_centered_text(
+                    &format!("Time: {:.2}", total_time),
+                    screen_height - 40.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
 
                 target.time_alive += get_frame_time();
                 total_time += get_frame_time();
-
 
                 if is_mouse_button_pressed(MouseButton::Left) {
                     click_count += 1;
@@ -69,13 +84,34 @@ pub async fn timed_game_loop() {
                 } else {
                     0.0
                 };
-                draw_centered_text(&format!("Accuracy: {:.2}%", if click_count > 0 {
-                    calc_accuracy(score, click_count)
-                } else {
-                    0.0
-                }), screen_height / 2.0 - 20.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Average time until target clicked: {:.3}", average_time), screen_height / 2.0 + 10.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Total time: {:.1}", total_time), screen_height / 2.0 + 40.0, 30, WHITE, screen_width);
+                draw_centered_text(
+                    &format!(
+                        "Accuracy: {:.2}%",
+                        if click_count > 0 {
+                            calc_accuracy(score, click_count)
+                        } else {
+                            0.0
+                        }
+                    ),
+                    screen_height / 2.0 - 20.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
+                draw_centered_text(
+                    &format!("Average time until target clicked: {:.3}", average_time),
+                    screen_height / 2.0 + 10.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
+                draw_centered_text(
+                    &format!("Total time: {:.1}", total_time),
+                    screen_height / 2.0 + 40.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
 
                 let restart_button_clicked = draw_button(
                     screen_width / 2.0 - 200.0,
@@ -85,7 +121,8 @@ pub async fn timed_game_loop() {
                     "Restart",
                 );
                 if restart_button_clicked {
-                    let (new_score, _new_miss, new_click_count, new_target) = restart_game(&texture).await;
+                    let (new_score, _new_miss, new_click_count, new_target) =
+                        restart_game(&texture).await;
                     count = 30;
                     score = new_score;
                     click_count = new_click_count;
@@ -95,7 +132,6 @@ pub async fn timed_game_loop() {
                 } else if is_key_pressed(KeyCode::Escape) {
                     break;
                 }
-
             }
         }
         next_frame().await;

@@ -1,5 +1,5 @@
-use macroquad::prelude::*;
 use crate::components::*;
+use macroquad::prelude::*;
 
 enum GameState {
     Starting,
@@ -29,14 +29,26 @@ pub async fn infinite_game_loop() {
 
         match game_state {
             GameState::Starting => {
-                draw_centered_text("Left click to start", screen_height / 2.0, 50, WHITE, screen_width);
+                draw_centered_text(
+                    "Left click to start",
+                    screen_height / 2.0,
+                    50,
+                    WHITE,
+                    screen_width,
+                );
                 if is_mouse_button_pressed(MouseButton::Left) {
                     game_state = GameState::Playing;
                 }
             }
 
             GameState::Playing => {
-                draw_centered_text(&format!("Lives: {}", miss), screen_height - 20.0, 30, WHITE, screen_width);
+                draw_centered_text(
+                    &format!("Lives: {}", miss),
+                    screen_height - 20.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
 
                 target.time_alive += get_frame_time();
 
@@ -68,13 +80,34 @@ pub async fn infinite_game_loop() {
                 } else {
                     0.0
                 };
-                draw_centered_text(&format!("Score: {}", score), screen_height / 2.0 - 50.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Accuracy: {:.2}%", if click_count > 0 {
-                    calc_accuracy(score, click_count)
-                } else {
-                    0.0
-                }), screen_height / 2.0 - 20.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Average time until target clicked: {:.3}", average_time), screen_height / 2.0 + 10.0, 30, WHITE, screen_width);
+                draw_centered_text(
+                    &format!("Score: {}", score),
+                    screen_height / 2.0 - 50.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
+                draw_centered_text(
+                    &format!(
+                        "Accuracy: {:.2}%",
+                        if click_count > 0 {
+                            calc_accuracy(score, click_count)
+                        } else {
+                            0.0
+                        }
+                    ),
+                    screen_height / 2.0 - 20.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
+                draw_centered_text(
+                    &format!("Average time until target clicked: {:.3}", average_time),
+                    screen_height / 2.0 + 10.0,
+                    30,
+                    WHITE,
+                    screen_width,
+                );
 
                 let restart_button_clicked = draw_button(
                     screen_width / 2.0 - 200.0,
@@ -85,7 +118,8 @@ pub async fn infinite_game_loop() {
                 );
 
                 if restart_button_clicked {
-                    let (new_score, new_miss, new_click_count, new_target) = restart_game(&texture).await;
+                    let (new_score, new_miss, new_click_count, new_target) =
+                        restart_game(&texture).await;
                     score = new_score;
                     miss = new_miss;
                     click_count = new_click_count;

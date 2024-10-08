@@ -76,7 +76,7 @@ pub fn draw_centered_text(text: &str, y: f32, font_size: u16, color: Color, scre
 }
 
 pub fn calc_accuracy(score: i32, click_count: i32) -> f32 {
-       (score as f32 / click_count as f32) * 100.0
+    (score as f32 / click_count as f32) * 100.0
 }
 
 //restarts game
@@ -93,6 +93,6 @@ pub async fn restart_game(texture: &Texture2D) -> (i32, i32, i32, Target) {
             radius: 30.0,
             time_alive: 0.0,
             texture: Some(texture.clone()),
-        }
+        },
     )
 }
