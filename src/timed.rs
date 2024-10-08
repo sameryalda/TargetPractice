@@ -106,7 +106,7 @@ pub async fn timed_game_loop() {
                     screen_width,
                 );
                 draw_centered_text(
-                    &format!("Total time: {:.1}", total_time),
+                    &format!("Total time: {:.2}", total_time),
                     screen_height / 2.0 + 40.0,
                     30,
                     WHITE,
