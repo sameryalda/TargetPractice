@@ -74,18 +74,28 @@ pub async fn timed_game_loop() {
                 } else {
                     0.0
                 }), screen_height / 2.0 - 20.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Average time until target clicked: {:.3}", average_time), screen_height / 2.0 + 10.0, 30, WHITE, screen_width);                draw_centered_text("Left click to play again", screen_height - 20.0, 30, WHITE, screen_width);
+                draw_centered_text(&format!("Average time until target clicked: {:.3}", average_time), screen_height / 2.0 + 10.0, 30, WHITE, screen_width);
                 draw_centered_text(&format!("Total time: {:.1}", total_time), screen_height / 2.0 + 40.0, 30, WHITE, screen_width);
-                if is_mouse_button_released(MouseButton::Left) {
-                    let (new_count, _new_miss, new_click_count, new_target) = restart_game(&texture).await;
-                    count = new_count;
+
+                let restart_button_clicked = draw_button(
+                    screen_width / 2.0 - 200.0,
+                    screen_height - 100.0,
+                    400.0,
+                    50.0,
+                    "Restart",
+                );
+                if restart_button_clicked {
+                    let (new_score, _new_miss, new_click_count, new_target) = restart_game(&texture).await;
+                    count = 30;
+                    score = new_score;
                     click_count = new_click_count;
                     target = new_target;
                     total_time = 0.0;
-                    game_state = GameState::Playing;
+                    game_state = GameState::Starting;
                 } else if is_key_pressed(KeyCode::Escape) {
                     break;
                 }
+
             }
         }
         next_frame().await;

@@ -84,7 +84,7 @@ pub async fn restart_game(texture: &Texture2D) -> (i32, i32, i32, Target) {
     let screen_width = screen_width();
     let screen_height = screen_height();
     (
-        0, // score/count
+        0, // score
         3, // miss
         0, // click_count
         Target {
