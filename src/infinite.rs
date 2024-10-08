@@ -69,7 +69,11 @@ pub async fn infinite_game_loop() {
                     0.0
                 };
                 draw_centered_text(&format!("Score: {}", score), screen_height / 2.0 - 50.0, 30, WHITE, screen_width);
-                draw_centered_text(&format!("Accuracy: {:.2}%", calc_accuracy(score, click_count)), screen_height / 2.0 - 20.0, 30, WHITE, screen_width);
+                draw_centered_text(&format!("Accuracy: {:.2}%", if click_count > 0 {
+                    calc_accuracy(score, click_count)
+                } else {
+                    0.0
+                }), screen_height / 2.0 - 20.0, 30, WHITE, screen_width);
                 draw_centered_text(&format!("Average time until target clicked: {:.3}", average_time), screen_height / 2.0 + 10.0, 30, WHITE, screen_width);
                 draw_centered_text("Left click to play again", screen_height - 20.0, 30, WHITE, screen_width);
 

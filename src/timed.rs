@@ -70,7 +70,7 @@ pub async fn timed_game_loop() {
                     0.0
                 };
                 draw_centered_text(&format!("Accuracy: {:.2}%", if click_count > 0 {
-                    (score as f32 / click_count as f32) * 100.0
+                    calc_accuracy(score, click_count)
                 } else {
                     0.0
                 }), screen_height / 2.0 - 20.0, 30, WHITE, screen_width);

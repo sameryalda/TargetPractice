@@ -76,10 +76,7 @@ pub fn draw_centered_text(text: &str, y: f32, font_size: u16, color: Color, scre
 }
 
 pub fn calc_accuracy(score: i32, click_count: i32) -> f32 {
-    if click_count > 0 {
-        let _ = (score as f32 / click_count as f32) * 100.0;
-    }
-    0.0
+       (score as f32 / click_count as f32) * 100.0
 }
 
 //restarts game
